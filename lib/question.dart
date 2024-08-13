@@ -137,7 +137,7 @@ List<QuizCategory> quizCategories = [
     questions: [
       Question(
         question: 'Who was the first President of the United States?',
-        answers: ['George Washington', 'Thomas Jefferson', 'Abraham Lincoln', 'John Adams'],
+        answers: [ 'Thomas Jefferson', 'Abraham Lincoln','George Washington', 'John Adams'],
         correctAnswer: 'George Washington',
       ),
       Question(
@@ -147,42 +147,42 @@ List<QuizCategory> quizCategories = [
       ),
       Question(
         question: 'Who was the first man to walk on the Moon?',
-        answers: ['Neil Armstrong', 'Buzz Aldrin', 'Yuri Gagarin', 'Michael Collins'],
+        answers: [ 'Buzz Aldrin','Neil Armstrong', 'Yuri Gagarin', 'Michael Collins'],
         correctAnswer: 'Neil Armstrong',
       ),
       Question(
         question: 'What empire was ruled by Julius Caesar?',
-        answers: ['Roman Empire', 'Ottoman Empire', 'British Empire', 'Mongol Empire'],
+        answers: [ 'Ottoman Empire', 'British Empire', 'Mongol Empire','Roman Empire'],
         correctAnswer: 'Roman Empire',
       ),
       Question(
         question: 'What ancient civilization built the pyramids?',
-        answers: ['Egyptians', 'Romans', 'Greeks', 'Mesoamericans'],
+        answers: ['Romans', 'Greeks','Egyptians', 'Mesoamericans'],
         correctAnswer: 'Egyptians',
       ),
       Question(
         question: 'Who was the first female Prime Minister of the United Kingdom?',
-        answers: ['Margaret Thatcher', 'Theresa May', 'Priti Patel', 'Nicola Sturgeon'],
+        answers: ['Theresa May', 'Priti Patel', 'Nicola Sturgeon','Margaret Thatcher'],
         correctAnswer: 'Margaret Thatcher',
       ),
       Question(
         question: 'Which war was fought between the North and South in the United States?',
-        answers: ['Civil War', 'Revolutionary War', 'World War I', 'World War II'],
+        answers: ['Revolutionary War','Civil War',  'World War I', 'World War II'],
         correctAnswer: 'Civil War',
       ),
       Question(
         question: 'Who discovered America in 1492?',
-        answers: ['Christopher Columbus', 'Ferdinand Magellan', 'Vasco da Gama', 'Hernán Cortés'],
+        answers: [ 'Ferdinand Magellan', 'Vasco da Gama','Christopher Columbus', 'Hernán Cortés'],
         correctAnswer: 'Christopher Columbus',
       ),
       Question(
         question: 'Which historical figure is known for his “I Have a Dream” speech?',
-        answers: ['Martin Luther King Jr.', 'Malcolm X', 'Rosa Parks', 'Nelson Mandela'],
+        answers: [ 'Malcolm X','Martin Luther King Jr.', 'Rosa Parks', 'Nelson Mandela'],
         correctAnswer: 'Martin Luther King Jr.',
       ),
       Question(
         question: 'What was the name of the ship that carried the Pilgrims to America?',
-        answers: ['Mayflower', 'Nina', 'Pinta', 'Santa Maria'],
+        answers: [ 'Nina', 'Pinta', 'Santa Maria','Mayflower'],
         correctAnswer: 'Mayflower',
       ),
     ],
