@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:quiz/screen/name_input_screen.dart';
 
 void main() {
-  runApp(QuizApp());
+  runApp(MyApp());
 }
 
-class QuizApp extends StatelessWidget {
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -14,7 +14,7 @@ class QuizApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: NameInputScreen(),
+      home: UserNameScreen(),
     );
   }
 }

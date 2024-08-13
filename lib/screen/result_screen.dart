@@ -10,27 +10,23 @@ class ResultScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz Result'),
+        title: Text('Quiz Results'),
+        backgroundColor: Colors.greenAccent,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Your Score',
+              'Your Score: $score / $total',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 16),
-            Text(
-              '$score / $total',
-              style: TextStyle(fontSize: 40, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: 32),
+            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.popUntil(context, (route) => route.isFirst);
               },
-              child: Text('Return to Home'),
+              child: Text('Back to Home'),
             ),
           ],
         ),
