@@ -74,35 +74,27 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
 
   Widget buildCategoryCard(BuildContext context, String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-      child: Container(
-        width: double.infinity,
-        margin: const EdgeInsets.symmetric(vertical: 16),
-        child: Card(
-          color: Color(0xFFD9D9D9),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(16.0),
-          ),
-          elevation: 4,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ListTile(
-              title: Text(
-                title,
-                style: TextStyle(
-                  color: Color(0xFF636364),
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),
+    return Container(
+      width: double.infinity,
+      height: 70,
+      margin: EdgeInsets.symmetric(vertical: 8),
+      child: Card(
+        color: Color(0xFFD9D9D9),
+        child: Center(
+          child: ListTile(
+            title: Text(
+              title,
+              style: TextStyle(
+                color: Color(0xFF636364),
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
-              contentPadding: EdgeInsets.zero,
-              onTap: () {
-                Navigator.of(context).push(_customPageTransition(
-                  QuizScreen(category: title, userName: widget.userName),
-                ));
-              },
             ),
+            onTap: () {
+              Navigator.of(context).push(_customPageTransition(
+                QuizScreen(category: title, userName: widget.userName),
+              ));
+            },
           ),
         ),
       ),
@@ -125,6 +117,29 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       },
     );
   }
+
+  PageRouteBuilder _customPageTransition(Widget page) {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) => page,
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        const begin = Offset(0.0, 0.05);
+        const end = Offset.zero;
+        const curve = Curves.easeInOut;
+
+        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+        var offsetAnimation = animation.drive(tween);
+
+        return SlideTransition(position: offsetAnimation, child: child);
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+}
 
   @override
   void dispose() {

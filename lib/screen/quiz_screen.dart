@@ -75,6 +75,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       );
     }
 
+    double progress = _currentQuestionIndex / _quizCategory!.questions.length;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.category),
@@ -113,6 +115,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                     },
                   ),
                 ),
+                )
               ),
               Expanded(
                 child: Padding(
@@ -132,6 +135,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           ),
                         ),
                       ),
+                      SizedBox(height: 20),
                       Expanded(
                         child: ListView(
                           children: _quizCategory!.questions[_currentQuestionIndex].answers.map<Widget>((answer) {
