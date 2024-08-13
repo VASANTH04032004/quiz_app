@@ -37,6 +37,30 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
 
   void _submitName() {
     if (_nameController.text.isNotEmpty) {
+      setState(() {
+        _isButtonPressed = true;
+      });
+      // Trigger the button press animation and navigate to the HomeScreen
+      Future.delayed(Duration(milliseconds: 200), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(userName: _nameController.text),
+          ),
+        );
+      });
+      setState(() {
+        _isButtonPressed = true;
+      });
+
+      Future.delayed(Duration(milliseconds: 200), () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(userName: _nameController.text),
+          ),
+        );
+      });
       Navigator.push(
         context,
         MaterialPageRoute(
