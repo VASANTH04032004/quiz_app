@@ -15,7 +15,7 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateMixin {
   int _currentQuestionIndex = 0;
   int _score = 0;
-  List<String> _selectedAnswers = [];
+  String? _selectedAnswer;
   late QuizCategory? _quizCategory;
   late AnimationController _animationController;
   late Animation<double> _fadeAnimation;
@@ -35,20 +35,14 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
   }
 
   void _nextQuestion() {
-    if (_quizCategory?.questions[_currentQuestionIndex].answerType == AnswerType.checkbox) {
-      if (_selectedAnswers.contains(_quizCategory?.questions[_currentQuestionIndex].correctAnswer)) {
-        _score++;
-      }
-    } else {
-      if (_selectedAnswers.first == _quizCategory?.questions[_currentQuestionIndex].correctAnswer) {
-        _score++;
-      }
+    if (_selectedAnswer == _quizCategory?.questions[_currentQuestionIndex].correctAnswer) {
+      _score++;
     }
 
     if (_currentQuestionIndex < (_quizCategory?.questions.length ?? 0) - 1) {
       setState(() {
         _currentQuestionIndex++;
-        _selectedAnswers = [];
+        _selectedAnswer = null;
         _animationController.reset();
         _animationController.forward();
       });
@@ -66,60 +60,6 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
     }
   }
 
-  Widget _buildAnswerWidget(String answer) {
-    final question = _quizCategory!.questions[_currentQuestionIndex];
-    bool isSelected = _selectedAnswers.contains(answer);
-
-    switch (question.answerType) {
-      case AnswerType.radioButton:
-        return RadioListTile<String>(
-          title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
-          value: answer,
-          groupValue: _selectedAnswers.isNotEmpty ? _selectedAnswers.first : null,
-          contentPadding: EdgeInsets.zero,
-          activeColor: Color(0xFF098EAB),
-          onChanged: (value) {
-            setState(() {
-              _selectedAnswers = [value!];
-            });
-          },
-        );
-      case AnswerType.checkbox:
-        return CheckboxListTile(
-          title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
-          value: isSelected,
-          activeColor: Color(0xFF098EAB),
-          contentPadding: EdgeInsets.zero,
-          onChanged: (value) {
-            setState(() {
-              if (value == true) {
-                _selectedAnswers.add(answer);
-              } else {
-                _selectedAnswers.remove(answer);
-              }
-            });
-          },
-        );
-      case AnswerType.switchButton:
-        return SwitchListTile(
-          title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
-          value: isSelected,
-          activeColor: Color(0xFF098EAB),
-          onChanged: (value) {
-            setState(() {
-              if (value) {
-                _selectedAnswers = [answer];
-              } else {
-                _selectedAnswers = [];
-              }
-            });
-          },
-        );
-      default:
-        return Container();
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     if (_quizCategory == null || _quizCategory!.questions.isEmpty) {
@@ -134,7 +74,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.category),
+        title: Text('Quiz'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -162,7 +102,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                         ),
                         child: LinearProgressIndicator(
                           value: progress,
-                          minHeight: 16,
+                          minHeight: 16,  // Match the height of the container for consistency
                           backgroundColor: Colors.transparent,
                           color: Color(0xFF098EAB),
                           borderRadius: BorderRadius.circular(20),
@@ -181,28 +121,39 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                       FadeTransition(
                         opacity: _fadeAnimation,
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0), // Add padding here
+                          padding: const EdgeInsets.only(bottom: 54.0),
                           child: Text(
                             _quizCategory!.questions[_currentQuestionIndex].question,
                             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-
                       Expanded(
                         child: ListView(
                           children: _quizCategory!.questions[_currentQuestionIndex].answers.map<Widget>((answer) {
+                            bool isSelected = _selectedAnswer == answer;
                             return Container(
                               margin: EdgeInsets.symmetric(vertical: 8),
                               padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                               decoration: BoxDecoration(
                                 border: Border.all(
-                                  color: _selectedAnswers.contains(answer) ? Colors.green : Color(0xFF098EAB),
+                                  color: isSelected ? Colors.green : Color(0xFF098EAB),
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(8),
                               ),
-                              child: _buildAnswerWidget(answer),
+                              child: RadioListTile<String>(
+                                title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
+                                value: answer,
+                                groupValue: _selectedAnswer,
+                                contentPadding: EdgeInsets.zero,
+                                activeColor: Color(0xFF098EAB),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _selectedAnswer = value;
+                                  });
+                                },
+                              ),
                             );
                           }).toList(),
                         ),
@@ -212,7 +163,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           Tween<double>(begin: 0.9, end: 1.0).chain(CurveTween(curve: Curves.easeInOut)),
                         ),
                         child: ElevatedButton(
-                          onPressed: _selectedAnswers.isNotEmpty ? _nextQuestion : null,
+                          onPressed: _selectedAnswer != null ? _nextQuestion : null,
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(double.infinity, 60),
                             backgroundColor: Color(0xFF098EAB),
@@ -232,6 +183,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                   ),
                 ),
               ),
+
+
             ],
           ),
         ),
