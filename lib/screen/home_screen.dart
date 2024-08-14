@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ),
         ),
         automaticallyImplyLeading: false,
-        elevation: 1,
+        centerTitle: true,
       ),
       body: FadeTransition(
         opacity: _fadeAnimation,
@@ -53,12 +53,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: Padding(
             padding: EdgeInsets.all(16),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Category cards will be shown in the middle of the screen
-                buildCategoryCard(context, 'General Knowledge'),
-                buildCategoryCard(context, 'Science'),
-                buildCategoryCard(context, 'History'),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      buildCategoryCard(context, 'General Knowledge'),
+                      buildCategoryCard(context, 'Science'),
+                      buildCategoryCard(context, 'History'),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
@@ -66,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       ),
     );
   }
-
 
   Widget buildCategoryCard(BuildContext context, String title) {
     return Container(
@@ -96,7 +100,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-
   PageRouteBuilder _customPageTransition(Widget page) {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) => page,
@@ -112,29 +115,6 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       },
     );
   }
-
-  PageRouteBuilder _customPageTransition(Widget page) {
-    return PageRouteBuilder(
-      pageBuilder: (context, animation, secondaryAnimation) => page,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        const begin = Offset(0.0, 0.05);
-        const end = Offset.zero;
-        const curve = Curves.easeInOut;
-
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-        var offsetAnimation = animation.drive(tween);
-
-        return SlideTransition(position: offsetAnimation, child: child);
-      },
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
-}
 
   @override
   void dispose() {
