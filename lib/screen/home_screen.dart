@@ -44,6 +44,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           ),
         ),
         automaticallyImplyLeading: false,
+        elevation: 1,
       ),
       body: FadeTransition(
         opacity: _fadeAnimation,
@@ -71,45 +72,43 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
+
   Widget buildCategoryCard(BuildContext context, String title) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Container(
         width: double.infinity,
-        margin: EdgeInsets.symmetric(vertical: 8),
+        margin: const EdgeInsets.symmetric(vertical: 16),
         child: Card(
           color: Color(0xFFD9D9D9),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12.0),
+            borderRadius: BorderRadius.circular(16.0),
           ),
-          elevation: 4, // Shadow for the card
+          elevation: 4,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 12.0),
-            child: Center(
-              child: ListTile(
-                title: Text(
-                  title,
-                  style: TextStyle(
-                    color: Color(0xFF636364),
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
-                  ),
+            padding: const EdgeInsets.all(16.0),
+            child: ListTile(
+              title: Text(
+                title,
+                style: TextStyle(
+                  color: Color(0xFF636364),
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
                 ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 12.0),
-                onTap: () {
-                  Navigator.of(context).push(_customPageTransition(
-                    QuizScreen(category: title, userName: widget.userName),
-                  ));
-                },
               ),
+              contentPadding: EdgeInsets.zero,
+              onTap: () {
+                Navigator.of(context).push(_customPageTransition(
+                  QuizScreen(category: title, userName: widget.userName),
+                ));
+              },
             ),
           ),
         ),
       ),
     );
-
-
   }
+
 
   PageRouteBuilder _customPageTransition(Widget page) {
     return PageRouteBuilder(
