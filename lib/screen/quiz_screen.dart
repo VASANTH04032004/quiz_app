@@ -97,8 +97,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                     animation: _animationController,
                     builder: (context, child) {
                       return Container(
-                        width: 380,
-                        height: 16,
+
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
                           borderRadius: BorderRadius.circular(20),
