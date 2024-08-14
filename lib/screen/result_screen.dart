@@ -35,8 +35,10 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
+    // Calculate the percentage
     int percentage = widget.total > 0 ? ((widget.score / widget.total) * 100).round() : 0;
 
+    // Determine the circle's outline color based on the percentage
     Color outlineColor;
     if (percentage <= 40) {
       outlineColor = Colors.red;
@@ -52,92 +54,91 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
     return Scaffold(
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 80.0),
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  'Hey, ${widget.userName}!',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 40.0),
-            child: ScaleTransition(
-              scale: _scaleAnimation,
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 500),
-                width: 150,
-                height: 150,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: outlineColor,
-                    width: 6.0,
-                  ),
-                ),
-                child: Center(
-                  child: Text(
-                    '${percentage}%',
-                    style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: FadeTransition(
-              opacity: _fadeAnimation,
-              child: Text(
-                resultText,
-                style: TextStyle(
-                  fontSize: 34,
-                  fontWeight: FontWeight.bold,
-                  color: resultColor,
-                ),
-              ),
-            ),
-          ),
           Expanded(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                        context,
-                        _customPageTransition(
-                          HomeScreen(userName: widget.userName),
-                        ),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFF098EAB),
-                      minimumSize: Size(double.infinity, 60),
-                      textStyle: TextStyle(fontSize: 20),
-                      foregroundColor: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(25),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 30),
+                  FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: Text(
+                      'Hey, ${widget.userName}!',
+                      style: TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.teal.shade800,
                       ),
                     ),
-                    child: Text('Back to Home'),
                   ),
-                ),
+                  SizedBox(height: 100),
+                  ScaleTransition(
+                    scale: _scaleAnimation,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      width: 150,
+                      height: 150,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.grey.shade300,
+                        border: Border.all(
+                          color: outlineColor,
+                          width: 6.0,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${percentage}%',
+                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 100),
+                  FadeTransition(
+                    opacity: _fadeAnimation,
+                    child: Text(
+                      resultText,
+                      style: TextStyle(
+                        fontSize: 34,
+                        fontWeight: FontWeight.bold,
+                        color: resultColor,
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
+          Container(
+            width: double.infinity,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: ScaleTransition(
+              scale: _scaleAnimation,
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pushReplacement(
+                    context,
+                    _customPageTransition(
+                      HomeScreen(userName: widget.userName),
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Color(0xFF098EAB),
+                  minimumSize: Size(double.infinity, 60),
+                  fixedSize: Size(double.infinity, 40),
+                  textStyle: TextStyle(fontSize: 20),
+                  foregroundColor: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                ),
+                child: Text('Back to Home'),
+              ),
+            ),
+          ),
+          SizedBox(height: 20),
         ],
       ),
     );
