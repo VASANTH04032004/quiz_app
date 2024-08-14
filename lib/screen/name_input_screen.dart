@@ -13,7 +13,6 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
   late Animation<double> _scaleAnimation;
   late Animation<double> _buttonScaleAnimation;
   bool _isButtonPressed = false;
-  bool _isFocused = false;
 
   @override
   void initState() {
@@ -100,7 +99,6 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                         Focus(
                           onFocusChange: (hasFocus) {
                             setState(() {
-                              _isFocused = hasFocus;
                             });
                           },
                           child: TextField(
