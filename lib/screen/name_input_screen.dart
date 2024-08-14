@@ -13,6 +13,7 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
   late Animation<double> _scaleAnimation;
   late Animation<double> _buttonScaleAnimation;
   bool _isButtonPressed = false;
+  bool _isFocused = false;
 
   @override
   void initState() {
@@ -49,18 +50,6 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
           ),
         );
       });
-      setState(() {
-        _isButtonPressed = true;
-      });
-
-      Future.delayed(Duration(milliseconds: 200), () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(userName: _nameController.text),
-          ),
-        );
-      });
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -87,10 +76,9 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
+                    padding: const EdgeInsets.only(top: 40.0), // Padding for the "Quiz" text
                     child: Text(
                       'Quiz',
                       style: TextStyle(
@@ -99,49 +87,46 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Center(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(bottom: 20),
-                          child: Text(
-                            'Enter your name:',
-                            style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black,
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Enter your name:',
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(height: 20), // Increased space between the text and the TextField
+                      Focus(
+                        onFocusChange: (hasFocus) {
+                          setState(() {
+                            _isFocused = hasFocus;
+                          });
+                        },
+                        child: TextField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey, // Default border color
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFF098EAB), // Border color when focused
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
                             ),
                           ),
                         ),
-                        Focus(
-                          onFocusChange: (hasFocus) {
-                            setState(() {
-                            });
-                          },
-                          child: TextField(
-                            controller: _nameController,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Colors.grey, // Default border color
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: Color(0xFF098EAB), // Border color when focused
-                                  width: 2.0,
-                                ),
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
