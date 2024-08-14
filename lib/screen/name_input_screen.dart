@@ -41,7 +41,7 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
       setState(() {
         _isButtonPressed = true;
       });
-      // Trigger the button press animation and navigate to the HomeScreen
+
       Future.delayed(Duration(milliseconds: 200), () {
         Navigator.push(
           context,
@@ -76,9 +76,10 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
             child: Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 40.0), // Padding for the "Quiz" text
+                    padding: const EdgeInsets.only(top: 40.0),
                     child: Text(
                       'Quiz',
                       style: TextStyle(
@@ -87,67 +88,65 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                       textAlign: TextAlign.center,
                     ),
                   ),
-                  Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Enter your name:',
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        ),
-                      ),
-                      SizedBox(height: 20), // Increased space between the text and the TextField
-                      Focus(
-                        onFocusChange: (hasFocus) {
-                          setState(() {
-                            _isFocused = hasFocus;
-                          });
-                        },
-                        child: TextField(
-                          controller: _nameController,
-                          decoration: InputDecoration(
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Colors.grey, // Default border color
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0xFF098EAB), // Border color when focused
-                                width: 2.0,
-                              ),
-                              borderRadius: BorderRadius.circular(12.0),
+                  Center(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 20),
+                          child: Text(
+                            'Enter your name:',
+                            style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black,
                             ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: ScaleTransition(
-                      scale: _isButtonPressed ? _buttonScaleAnimation : AlwaysStoppedAnimation(1),
-                      child: ElevatedButton(
-                        onPressed: _submitName,
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xFF098EAB),
-                          minimumSize: Size(double.infinity, 60),
-                          textStyle: TextStyle(fontSize: 20),
-                          foregroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(25),
+                        Focus(
+                          onFocusChange: (hasFocus) {
+                            setState(() {
+                              _isFocused = hasFocus;
+                            });
+                          },
+                          child: TextField(
+                            controller: _nameController,
+                            decoration: InputDecoration(
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Colors.grey, // Default border color
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0xFF098EAB), // Border color when focused
+                                  width: 2.0,
+                                ),
+                                borderRadius: BorderRadius.circular(12.0),
+                              ),
+                            ),
                           ),
                         ),
-                        child: Text('Submit'),
-                      ),
+                      ],
                     ),
-                  )
-
+                  ),
+                  ScaleTransition(
+                    scale: _isButtonPressed ? _buttonScaleAnimation : AlwaysStoppedAnimation(1),
+                    child: ElevatedButton(
+                      onPressed: _submitName,
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xFF098EAB),
+                        minimumSize: Size(double.infinity, 50),
+                        padding: EdgeInsets.symmetric(vertical: 10),
+                        textStyle: TextStyle(fontSize: 20),
+                        foregroundColor: Colors.white,
+                      ),
+                      child: Text('Submit'),
+                    ),
+                  ),
                 ],
               ),
             ),
