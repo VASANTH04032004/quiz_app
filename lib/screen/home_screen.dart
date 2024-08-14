@@ -53,12 +53,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: Padding(
             padding: EdgeInsets.all(16),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Category cards will be shown in the middle of the screen
-                buildCategoryCard(context, 'General Knowledge'),
-                buildCategoryCard(context, 'Science'),
-                buildCategoryCard(context, 'History'),
+                Expanded(
+                  child: ListView(
+                    children: [
+                      buildCategoryCard(context, 'General Knowledge'),
+                      buildCategoryCard(context, 'Science'),
+                      buildCategoryCard(context, 'History'),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),

@@ -80,7 +80,6 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
                       height: 150,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.grey.shade300,
                         border: Border.all(
                           color: outlineColor,
                           width: 6.0,
