@@ -74,11 +74,9 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                     'Quiz',
                     style: TextStyle(
                       fontSize: 70,
-                      fontWeight: FontWeight.bold,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 40),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -90,7 +88,6 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 8),
                       TextField(
                         controller: _nameController,
                         decoration: InputDecoration(
@@ -108,7 +105,8 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                       onPressed: _submitName,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Color(0xFF098EAB),
-                        minimumSize: Size(double.infinity, 60),
+                        minimumSize: Size(double.infinity, 50),
+                        padding: EdgeInsets.symmetric(vertical: 10),
                         textStyle: TextStyle(fontSize: 20),
                         foregroundColor: Colors.white,
                       ),

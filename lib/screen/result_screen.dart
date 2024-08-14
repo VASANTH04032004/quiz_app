@@ -35,9 +35,21 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
 
   @override
   Widget build(BuildContext context) {
-    // Define text and color based on score
-    String resultText = widget.score <= 5 ? 'Poor!' : 'Great!';
-    Color resultColor = widget.score <= 5 ? Colors.red : Colors.teal.shade800;
+    // Calculate the percentage
+    int percentage = widget.total > 0 ? ((widget.score / widget.total) * 100).round() : 0;
+
+    // Determine the circle's outline color based on the percentage
+    Color outlineColor;
+    if (percentage <= 40) {
+      outlineColor = Colors.red;
+    } else if (percentage <= 70) {
+      outlineColor = Colors.orange;
+    } else {
+      outlineColor = Colors.green;
+    }
+
+    String resultText = percentage <= 50 ? 'Poor!' : 'Great!';
+    Color resultColor = percentage <= 50 ? Colors.red : Colors.teal.shade800;
 
     return Scaffold(
       body: Column(
@@ -59,46 +71,36 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 100),
                   ScaleTransition(
                     scale: _scaleAnimation,
-                    child: Container(
-                      width: 150, // Increased size
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 500),
+                      width: 150,
                       height: 150,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.grey.shade300,
+                        border: Border.all(
+                          color: outlineColor,
+                          width: 6.0,
+                        ),
                       ),
                       child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              '${widget.score}',
-                              style: TextStyle(fontSize: 36, fontWeight: FontWeight.bold),
-                            ),
-                            Divider(
-                              thickness: 2,
-                              color: Colors.black,
-                              indent: 30,
-                              endIndent: 30,
-                            ),
-                            Text(
-                              '${widget.total}',
-                              style: TextStyle(fontSize: 28),
-                            ),
-                          ],
+                        child: Text(
+                          '${percentage}%',
+                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(height: 20),
+                  SizedBox(height: 100),
                   FadeTransition(
                     opacity: _fadeAnimation,
                     child: Text(
                       resultText,
                       style: TextStyle(
-                        fontSize: 24,
+                        fontSize: 34,
                         fontWeight: FontWeight.bold,
                         color: resultColor,
                       ),
@@ -125,6 +127,7 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF098EAB),
                   minimumSize: Size(double.infinity, 60),
+                  fixedSize: Size(double.infinity, 40),
                   textStyle: TextStyle(fontSize: 20),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(

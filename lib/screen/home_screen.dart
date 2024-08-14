@@ -39,10 +39,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         title: Text(
           'Welcome, ${widget.userName}!',
           style: TextStyle(
+            fontSize: 28,
             fontWeight: FontWeight.bold,
           ),
         ),
-        backgroundColor: Color(0xFF098EAB),
         automaticallyImplyLeading: false,
         centerTitle: true,
       ),
@@ -53,17 +53,12 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           child: Padding(
             padding: EdgeInsets.all(16),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center, // Center the content vertically
               children: [
-                Expanded(
-                  child: ListView(
-                    children: [
-                      buildCategoryCard(context, 'General Knowledge'),
-                      buildCategoryCard(context, 'Science'),
-                      buildCategoryCard(context, 'History'),
-                    ],
-                  ),
-                ),
+                // Category cards will be shown in the middle of the screen
+                buildCategoryCard(context, 'General Knowledge'),
+                buildCategoryCard(context, 'Science'),
+                buildCategoryCard(context, 'History'),
               ],
             ),
           ),
