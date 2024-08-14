@@ -13,6 +13,7 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
   late Animation<double> _scaleAnimation;
   late Animation<double> _buttonScaleAnimation;
   bool _isButtonPressed = false;
+  bool _isFocused = false;
 
   @override
   void initState() {
@@ -69,14 +70,17 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 children: [
-                  Spacer(),
-                  Text(
-                    'Quiz',
-                    style: TextStyle(
-                      fontSize: 70,
+                  Padding(
+                    padding: const EdgeInsets.only(top: 40.0), // Padding for the "Quiz" text
+                    child: Text(
+                      'Quiz',
+                      style: TextStyle(
+                        fontSize: 70,
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
+                  Spacer(),
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -88,11 +92,30 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                           color: Colors.black,
                         ),
                       ),
-                      TextField(
-                        controller: _nameController,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12.0),
+                      SizedBox(height: 20), // Increased space between the text and the TextField
+                      Focus(
+                        onFocusChange: (hasFocus) {
+                          setState(() {
+                            _isFocused = hasFocus;
+                          });
+                        },
+                        child: TextField(
+                          controller: _nameController,
+                          decoration: InputDecoration(
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey, // Default border color
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0xFF098EAB), // Border color when focused
+                                width: 2.0,
+                              ),
+                              borderRadius: BorderRadius.circular(12.0),
+                            ),
                           ),
                         ),
                       ),

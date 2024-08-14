@@ -18,7 +18,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
   String? _selectedAnswer;
   late QuizCategory? _quizCategory;
   late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
+  late Animation<double> _progressAnimation;
+  late double _progressValue;
 
   @override
   void initState() {
@@ -28,7 +29,8 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
+    _progressValue = 0; // Initialize the progress value
+    _progressAnimation = Tween<double>(begin: _progressValue, end: _progressValue).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
     _animationController.forward();
@@ -43,8 +45,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       setState(() {
         _currentQuestionIndex++;
         _selectedAnswer = null;
-        _animationController.reset();
-        _animationController.forward();
+        _progressValue = (_currentQuestionIndex + 1) / (_quizCategory?.questions.length ?? 1); // Update the progress value
+        _progressAnimation = Tween<double>(begin: _progressAnimation.value, end: _progressValue).animate(
+          CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
+        );
+        _animationController.forward(from: 0); // Start animation from the beginning
       });
     } else {
       Navigator.push(
@@ -70,11 +75,9 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       );
     }
 
-    double progress = _currentQuestionIndex / _quizCategory!.questions.length;
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quiz'),
+        title: Text(widget.category),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -101,7 +104,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: LinearProgressIndicator(
-                          value: progress,
+                          value: _progressAnimation.value,
                           minHeight: 16,  // Match the height of the container for consistency
                           backgroundColor: Colors.transparent,
                           color: Color(0xFF098EAB),
@@ -119,7 +122,9 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FadeTransition(
-                        opacity: _fadeAnimation,
+                        opacity: _animationController.drive(
+                          Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.easeInOut)),
+                        ),
                         child: Padding(
                           padding: const EdgeInsets.only(bottom: 54.0),
                           child: Text(
@@ -132,27 +137,32 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                         child: ListView(
                           children: _quizCategory!.questions[_currentQuestionIndex].answers.map<Widget>((answer) {
                             bool isSelected = _selectedAnswer == answer;
-                            return Container(
-                              margin: EdgeInsets.symmetric(vertical: 8),
-                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: isSelected ? Colors.green : Color(0xFF098EAB),
-                                  width: 2,
-                                ),
-                                borderRadius: BorderRadius.circular(8),
+                            return FadeTransition(
+                              opacity: _animationController.drive(
+                                Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.easeInOut)),
                               ),
-                              child: RadioListTile<String>(
-                                title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
-                                value: answer,
-                                groupValue: _selectedAnswer,
-                                contentPadding: EdgeInsets.zero,
-                                activeColor: Color(0xFF098EAB),
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedAnswer = value;
-                                  });
-                                },
+                              child: Container(
+                                margin: EdgeInsets.symmetric(vertical: 8),
+                                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: isSelected ? Colors.green : Color(0xFF098EAB),
+                                    width: 2,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: RadioListTile<String>(
+                                  title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
+                                  value: answer,
+                                  groupValue: _selectedAnswer,
+                                  contentPadding: EdgeInsets.zero,
+                                  activeColor: Color(0xFF098EAB),
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _selectedAnswer = value;
+                                    });
+                                  },
+                                ),
                               ),
                             );
                           }).toList(),
@@ -183,8 +193,6 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                   ),
                 ),
               ),
-
-
             ],
           ),
         ),
