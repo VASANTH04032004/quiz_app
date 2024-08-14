@@ -16,11 +16,10 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateMixin {
   int _currentQuestionIndex = 0;
   int _score = 0;
-  Answer? _selectedAnswer;
+  List<String> _selectedAnswers = [];
   late QuizCategory? _quizCategory;
   late AnimationController _animationController;
-  late Animation<double> _progressAnimation;
-  late double _progressValue;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
@@ -30,27 +29,29 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _progressValue = 0;
-    _progressAnimation = Tween<double>(begin: _progressValue, end: _progressValue).animate(
+    _fadeAnimation = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
     _animationController.forward();
   }
 
   void _nextQuestion() {
-    if (_selectedAnswer == _quizCategory?.questions[_currentQuestionIndex].correctAnswer) {
-      _score++;
+    if (_quizCategory?.questions[_currentQuestionIndex].answerType == AnswerType.checkbox) {
+      if (_selectedAnswers.contains(_quizCategory?.questions[_currentQuestionIndex].correctAnswer)) {
+        _score++;
+      }
+    } else {
+      if (_selectedAnswers.first == _quizCategory?.questions[_currentQuestionIndex].correctAnswer) {
+        _score++;
+      }
     }
 
     if (_currentQuestionIndex < (_quizCategory?.questions.length ?? 0) - 1) {
       setState(() {
         _currentQuestionIndex++;
-        _selectedAnswer = null;
-        _progressValue = (_currentQuestionIndex + 1) / (_quizCategory?.questions.length ?? 1);
-        _progressAnimation = Tween<double>(begin: _progressAnimation.value, end: _progressValue).animate(
-          CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
-        );
-        _animationController.forward(from: 0);
+        _selectedAnswers = [];
+        _animationController.reset();
+        _animationController.forward();
       });
     } else {
       Navigator.push(
@@ -63,6 +64,60 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
           ),
         ),
       );
+    }
+  }
+
+  Widget _buildAnswerWidget(String answer) {
+    final question = _quizCategory!.questions[_currentQuestionIndex];
+    bool isSelected = _selectedAnswers.contains(answer);
+
+    switch (question.answerType) {
+      case AnswerType.radioButton:
+        return RadioListTile<String>(
+          title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
+          value: answer,
+          groupValue: _selectedAnswers.isNotEmpty ? _selectedAnswers.first : null,
+          contentPadding: EdgeInsets.zero,
+          activeColor: Color(0xFF098EAB),
+          onChanged: (value) {
+            setState(() {
+              _selectedAnswers = [value!];
+            });
+          },
+        );
+      case AnswerType.checkbox:
+        return CheckboxListTile(
+          title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
+          value: isSelected,
+          activeColor: Color(0xFF098EAB),
+          contentPadding: EdgeInsets.zero,
+          onChanged: (value) {
+            setState(() {
+              if (value == true) {
+                _selectedAnswers.add(answer);
+              } else {
+                _selectedAnswers.remove(answer);
+              }
+            });
+          },
+        );
+      case AnswerType.switchButton:
+        return SwitchListTile(
+          title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
+          value: isSelected,
+          activeColor: Color(0xFF098EAB),
+          onChanged: (value) {
+            setState(() {
+              if (value) {
+                _selectedAnswers = [answer];
+              } else {
+                _selectedAnswers = [];
+              }
+            });
+          },
+        );
+      default:
+        return Container();
     }
   }
 
@@ -100,12 +155,14 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                     animation: _animationController,
                     builder: (context, child) {
                       return Container(
+                        width: 380,
+                        height: 16,
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: LinearProgressIndicator(
-                          value: _progressAnimation.value,
+                          value: progress,
                           minHeight: 16,
                           backgroundColor: Colors.transparent,
                           color: Color(0xFF098EAB),
@@ -115,7 +172,6 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                     },
                   ),
                 ),
-                )
               ),
               Expanded(
                 child: Padding(
@@ -124,21 +180,28 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       FadeTransition(
-                        opacity: _animationController.drive(
-                          Tween<double>(begin: 0, end: 1).chain(CurveTween(curve: Curves.easeInOut)),
-                        ),
+                        opacity: _fadeAnimation,
                         child: Padding(
-                          padding: const EdgeInsets.only(bottom: 54.0),
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 24.0), // Add padding here
                           child: Text(
                             _quizCategory!.questions[_currentQuestionIndex].question,
                             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ),
-                      SizedBox(height: 20),
+
                       Expanded(
                         child: ListView(
                           children: _quizCategory!.questions[_currentQuestionIndex].answers.map<Widget>((answer) {
+                            return Container(
+                              margin: EdgeInsets.symmetric(vertical: 8),
+                              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: _selectedAnswers.contains(answer) ? Colors.green : Color(0xFF098EAB),
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(8),
                             bool isSelected = _selectedAnswer == answer;
                             return FadeTransition(
                               opacity: _animationController.drive(
@@ -167,6 +230,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                   },
                                 ),
                               ),
+                              child: _buildAnswerWidget(answer),
                             );
                           }).toList(),
                         ),
@@ -176,7 +240,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           Tween<double>(begin: 0.9, end: 1.0).chain(CurveTween(curve: Curves.easeInOut)),
                         ),
                         child: ElevatedButton(
-                          onPressed: _selectedAnswer != null ? _nextQuestion : null,
+                          onPressed: _selectedAnswers.isNotEmpty ? _nextQuestion : null,
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(double.infinity, 60),
                             backgroundColor: Color(0xFF098EAB),
