@@ -196,7 +196,7 @@ QuizCategory getCategoryByName(String categoryName) {
         (category) => category.name == categoryName,
     orElse: () => QuizCategory(
       name: 'Not Found',
-      questions: [], // Or provide an empty list
+      questions: [],
     ),
   );
 }
