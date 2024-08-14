@@ -54,64 +54,67 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
     return Scaffold(
       body: Column(
         children: [
-          Expanded(
-            child: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(height: 30),
-                  FadeTransition(
-                    opacity: _fadeAnimation,
-                    child: Text(
-                      'Hey, ${widget.userName}!',
-                      style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.teal.shade800,
-                      ),
-                    ),
+          Padding(
+            padding: const EdgeInsets.only(top: 80.0),
+            child: FadeTransition(
+              opacity: _fadeAnimation,
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  'Hey, ${widget.userName}!',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.teal.shade800,
                   ),
-                  SizedBox(height: 100),
-                  ScaleTransition(
-                    scale: _scaleAnimation,
-                    child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 500),
-                      width: 150,
-                      height: 150,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          color: outlineColor,
-                          width: 6.0,
-                        ),
-                      ),
-                      child: Center(
-                        child: Text(
-                          '${percentage}%',
-                          style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 100),
-                  FadeTransition(
-                    opacity: _fadeAnimation,
-                    child: Text(
-                      resultText,
-                      style: TextStyle(
-                        fontSize: 34,
-                        fontWeight: FontWeight.bold,
-                        color: resultColor,
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ),
           ),
-          Container(
-            width: double.infinity,
-            padding: EdgeInsets.symmetric(horizontal: 16),
+
+          Expanded(
+            child: Column(
+              children: [
+                Spacer(flex: 1), // Pushes the circle to the middle
+                ScaleTransition(
+                  scale: _scaleAnimation,
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 500),
+                    width: 150,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: outlineColor,
+                        width: 6.0,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${percentage}%',
+                        style: TextStyle(fontSize: 32, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ),
+                Spacer(flex: 1), // Pushes the text below the circle
+                FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: Text(
+                    resultText,
+                    style: TextStyle(
+                      fontSize: 34,
+                      fontWeight: FontWeight.bold,
+                      color: resultColor,
+                    ),
+                  ),
+                ),
+                Spacer(flex: 2), // Adjust space between circle and button
+              ],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0), // Equal padding on all sides for the button
             child: ScaleTransition(
               scale: _scaleAnimation,
               child: ElevatedButton(
@@ -126,7 +129,6 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Color(0xFF098EAB),
                   minimumSize: Size(double.infinity, 60),
-                  fixedSize: Size(double.infinity, 40),
                   textStyle: TextStyle(fontSize: 20),
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -137,7 +139,6 @@ class _ResultScreenState extends State<ResultScreen> with SingleTickerProviderSt
               ),
             ),
           ),
-          SizedBox(height: 20),
         ],
       ),
     );
