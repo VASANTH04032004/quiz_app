@@ -1,7 +1,9 @@
+import 'answer.dart';
+
 class Question {
   final String question;
-  final List<String> answers;
-  final String correctAnswer;
+  final List<Answer> answers;
+  final Answer correctAnswer;
 
   Question({
     required this.question,
@@ -9,6 +11,7 @@ class Question {
     required this.correctAnswer,
   });
 }
+
 class QuizCategory {
   final String name;
   final List<Question> questions;
@@ -18,177 +21,323 @@ class QuizCategory {
     required this.questions,
   });
 }
+
 List<QuizCategory> quizCategories = [
   QuizCategory(
     name: 'General Knowledge',
     questions: [
       Question(
         question: 'What is the capital of France?',
-        answers: ['Paris', 'London', 'Rome', 'Berlin'],
-        correctAnswer: 'Paris',
+        answers: [
+          Answer.correct('Paris'),
+          Answer.incorrect('London'),
+          Answer.incorrect('Rome'),
+          Answer.incorrect('Berlin'),
+        ],
+        correctAnswer: Answer.correct('Paris'),
       ),
       Question(
         question: 'Who wrote "To Kill a Mockingbird"?',
-        answers: ['Harper Lee', 'J.K. Rowling', 'Ernest Hemingway', 'Mark Twain'],
-        correctAnswer: 'Harper Lee',
+        answers: [
+          Answer.correct('Harper Lee'),
+          Answer.incorrect('J.K. Rowling'),
+          Answer.incorrect('Ernest Hemingway'),
+          Answer.incorrect('Mark Twain'),
+        ],
+        correctAnswer: Answer.correct('Harper Lee'),
       ),
       Question(
         question: 'What is the largest planet in our solar system?',
-        answers: ['Earth', 'Mars', 'Jupiter', 'Saturn'],
-        correctAnswer: 'Jupiter',
+        answers: [
+          Answer.incorrect('Earth'),
+          Answer.incorrect('Mars'),
+          Answer.correct('Jupiter'),
+          Answer.incorrect('Saturn'),
+        ],
+        correctAnswer: Answer.correct('Jupiter'),
       ),
       Question(
         question: 'What is the chemical symbol for gold?',
-        answers: ['Au', 'Ag', 'Pb', 'Fe'],
-        correctAnswer: 'Au',
+        answers: [
+          Answer.correct('Au'),
+          Answer.incorrect('Ag'),
+          Answer.incorrect('Pb'),
+          Answer.incorrect('Fe'),
+        ],
+        correctAnswer: Answer.correct('Au'),
       ),
       Question(
         question: 'Who painted the Mona Lisa?',
-        answers: ['Leonardo da Vinci', 'Vincent van Gogh', 'Pablo Picasso', 'Claude Monet'],
-        correctAnswer: 'Leonardo da Vinci',
+        answers: [
+          Answer.correct('Leonardo da Vinci'),
+          Answer.incorrect('Vincent van Gogh'),
+          Answer.incorrect('Pablo Picasso'),
+          Answer.incorrect('Claude Monet'),
+        ],
+        correctAnswer: Answer.correct('Leonardo da Vinci'),
       ),
       Question(
         question: 'What is the smallest continent by land area?',
-        answers: ['Australia', 'Europe', 'South America', 'Africa'],
-        correctAnswer: 'Australia',
+        answers: [
+          Answer.correct('Australia'),
+          Answer.incorrect('Europe'),
+          Answer.incorrect('South America'),
+          Answer.incorrect('Africa'),
+        ],
+        correctAnswer: Answer.correct('Australia'),
       ),
       Question(
         question: 'What is the main ingredient in guacamole?',
-        answers: ['Avocado', 'Tomato', 'Pepper', 'Onion'],
-        correctAnswer: 'Avocado',
+        answers: [
+          Answer.correct('Avocado'),
+          Answer.incorrect('Tomato'),
+          Answer.incorrect('Pepper'),
+          Answer.incorrect('Onion'),
+        ],
+        correctAnswer: Answer.correct('Avocado'),
       ),
       Question(
         question: 'What year did the Titanic sink?',
-        answers: ['1912', '1905', '1898', '1923'],
-        correctAnswer: '1912',
+        answers: [
+          Answer.correct('1912'),
+          Answer.incorrect('1905'),
+          Answer.incorrect('1898'),
+          Answer.incorrect('1923'),
+        ],
+        correctAnswer: Answer.correct('1912'),
       ),
       Question(
         question: 'Which element has the atomic number 1?',
-        answers: ['Hydrogen', 'Helium', 'Oxygen', 'Carbon'],
-        correctAnswer: 'Hydrogen',
+        answers: [
+          Answer.correct('Hydrogen'),
+          Answer.incorrect('Helium'),
+          Answer.incorrect('Oxygen'),
+          Answer.incorrect('Carbon'),
+        ],
+        correctAnswer: Answer.correct('Hydrogen'),
       ),
       Question(
         question: 'What is the longest river in the world?',
-        answers: ['Nile', 'Amazon', 'Yangtze', 'Mississippi'],
-        correctAnswer: 'Nile',
+        answers: [
+          Answer.correct('Nile'),
+          Answer.incorrect('Amazon'),
+          Answer.incorrect('Yangtze'),
+          Answer.incorrect('Mississippi'),
+        ],
+        correctAnswer: Answer.correct('Nile'),
       ),
     ],
   ),
-
   QuizCategory(
     name: 'Science',
     questions: [
       Question(
         question: 'What planet is known as the Red Planet?',
-        answers: ['Mars', 'Venus', 'Earth', 'Jupiter'],
-        correctAnswer: 'Mars',
+        answers: [
+          Answer.correct('Mars'),
+          Answer.incorrect('Venus'),
+          Answer.incorrect('Earth'),
+          Answer.incorrect('Jupiter'),
+        ],
+        correctAnswer: Answer.correct('Mars'),
       ),
       Question(
         question: 'What is the chemical symbol for water?',
-        answers: ['H2O', 'O2', 'CO2', 'H2SO4'],
-        correctAnswer: 'H2O',
+        answers: [
+          Answer.correct('H2O'),
+          Answer.incorrect('O2'),
+          Answer.incorrect('CO2'),
+          Answer.incorrect('H2SO4'),
+        ],
+        correctAnswer: Answer.correct('H2O'),
       ),
       Question(
         question: 'What is the process by which plants make their food?',
-        answers: ['Photosynthesis', 'Respiration', 'Digestion', 'Transpiration'],
-        correctAnswer: 'Photosynthesis',
+        answers: [
+          Answer.correct('Photosynthesis'),
+          Answer.incorrect('Respiration'),
+          Answer.incorrect('Digestion'),
+          Answer.incorrect('Transpiration'),
+        ],
+        correctAnswer: Answer.correct('Photosynthesis'),
       ),
       Question(
         question: 'Who is known as the father of modern physics?',
-        answers: ['Albert Einstein', 'Isaac Newton', 'Niels Bohr', 'Galileo Galilei'],
-        correctAnswer: 'Albert Einstein',
+        answers: [
+          Answer.correct('Albert Einstein'),
+          Answer.incorrect('Isaac Newton'),
+          Answer.incorrect('Niels Bohr'),
+          Answer.incorrect('Galileo Galilei'),
+        ],
+        correctAnswer: Answer.correct('Albert Einstein'),
       ),
       Question(
         question: 'What gas do plants absorb from the atmosphere?',
-        answers: ['Carbon Dioxide', 'Oxygen', 'Nitrogen', 'Hydrogen'],
-        correctAnswer: 'Carbon Dioxide',
+        answers: [
+          Answer.correct('Carbon Dioxide'),
+          Answer.incorrect('Oxygen'),
+          Answer.incorrect('Nitrogen'),
+          Answer.incorrect('Hydrogen'),
+        ],
+        correctAnswer: Answer.correct('Carbon Dioxide'),
       ),
       Question(
         question: 'What is the most abundant gas in Earth’s atmosphere?',
-        answers: ['Nitrogen', 'Oxygen', 'Carbon Dioxide', 'Argon'],
-        correctAnswer: 'Nitrogen',
+        answers: [
+          Answer.correct('Nitrogen'),
+          Answer.incorrect('Oxygen'),
+          Answer.incorrect('Carbon Dioxide'),
+          Answer.incorrect('Argon'),
+        ],
+        correctAnswer: Answer.correct('Nitrogen'),
       ),
       Question(
         question: 'What is the powerhouse of the cell?',
-        answers: ['Mitochondria', 'Nucleus', 'Ribosome', 'Endoplasmic Reticulum'],
-        correctAnswer: 'Mitochondria',
+        answers: [
+          Answer.correct('Mitochondria'),
+          Answer.incorrect('Nucleus'),
+          Answer.incorrect('Ribosome'),
+          Answer.incorrect('Endoplasmic Reticulum'),
+        ],
+        correctAnswer: Answer.correct('Mitochondria'),
       ),
       Question(
         question: 'What type of bond holds the two strands of DNA together?',
-        answers: ['Hydrogen Bond', 'Ionic Bond', 'Covalent Bond', 'Metallic Bond'],
-        correctAnswer: 'Hydrogen Bond',
+        answers: [
+          Answer.correct('Hydrogen Bond'),
+          Answer.incorrect('Ionic Bond'),
+          Answer.incorrect('Covalent Bond'),
+          Answer.incorrect('Metallic Bond'),
+        ],
+        correctAnswer: Answer.correct('Hydrogen Bond'),
       ),
       Question(
         question: 'What is the speed of light?',
-        answers: ['299,792 km/s', '150,000 km/s', '300,000 km/s', '200,000 km/s'],
-        correctAnswer: '299,792 km/s',
+        answers: [
+          Answer.correct('299,792 km/s'),
+          Answer.incorrect('150,000 km/s'),
+          Answer.incorrect('300,000 km/s'),
+          Answer.incorrect('200,000 km/s'),
+        ],
+        correctAnswer: Answer.correct('299,792 km/s'),
       ),
       Question(
         question: 'What is the chemical symbol for sodium?',
-        answers: ['Na', 'N', 'S', 'So'],
-        correctAnswer: 'Na',
+        answers: [
+          Answer.correct('Na'),
+          Answer.incorrect('N'),
+          Answer.incorrect('S'),
+          Answer.incorrect('So'),
+        ],
+        correctAnswer: Answer.correct('Na'),
       ),
     ],
   ),
-
-
   QuizCategory(
     name: 'History',
     questions: [
       Question(
         question: 'Who was the first President of the United States?',
-        answers: [ 'Thomas Jefferson', 'Abraham Lincoln','George Washington', 'John Adams'],
-        correctAnswer: 'George Washington',
+        answers: [
+          Answer.incorrect('Thomas Jefferson'),
+          Answer.incorrect('Abraham Lincoln'),
+          Answer.correct('George Washington'),
+          Answer.incorrect('John Adams'),
+        ],
+        correctAnswer: Answer.correct('George Washington'),
       ),
       Question(
         question: 'In which year did World War II end?',
-        answers: ['1945', '1939', '1944', '1941'],
-        correctAnswer: '1945',
+        answers: [
+          Answer.correct('1945'),
+          Answer.incorrect('1939'),
+          Answer.incorrect('1944'),
+          Answer.incorrect('1941'),
+        ],
+        correctAnswer: Answer.correct('1945'),
       ),
       Question(
         question: 'Who was the first man to walk on the Moon?',
-        answers: [ 'Buzz Aldrin','Neil Armstrong', 'Yuri Gagarin', 'Michael Collins'],
-        correctAnswer: 'Neil Armstrong',
+        answers: [
+          Answer.incorrect('Buzz Aldrin'),
+          Answer.correct('Neil Armstrong'),
+          Answer.incorrect('Yuri Gagarin'),
+          Answer.incorrect('Michael Collins'),
+        ],
+        correctAnswer: Answer.correct('Neil Armstrong'),
       ),
       Question(
         question: 'What empire was ruled by Julius Caesar?',
-        answers: [ 'Ottoman Empire', 'British Empire', 'Mongol Empire','Roman Empire'],
-        correctAnswer: 'Roman Empire',
+        answers: [
+          Answer.incorrect('Ottoman Empire'),
+          Answer.incorrect('British Empire'),
+          Answer.incorrect('Mongol Empire'),
+          Answer.correct('Roman Empire'),
+        ],
+        correctAnswer: Answer.correct('Roman Empire'),
       ),
       Question(
         question: 'What ancient civilization built the pyramids?',
-        answers: ['Romans', 'Greeks','Egyptians', 'Mesoamericans'],
-        correctAnswer: 'Egyptians',
+        answers: [
+          Answer.incorrect('Romans'),
+          Answer.incorrect('Greeks'),
+          Answer.correct('Egyptians'),
+          Answer.incorrect('Mesoamericans'),
+        ],
+        correctAnswer: Answer.correct('Egyptians'),
       ),
       Question(
         question: 'Who was the first female Prime Minister of the United Kingdom?',
-        answers: ['Theresa May', 'Priti Patel', 'Nicola Sturgeon','Margaret Thatcher'],
-        correctAnswer: 'Margaret Thatcher',
+        answers: [
+          Answer.incorrect('Theresa May'),
+          Answer.incorrect('Priti Patel'),
+          Answer.incorrect('Nicola Sturgeon'),
+          Answer.correct('Margaret Thatcher'),
+        ],
+        correctAnswer: Answer.correct('Margaret Thatcher'),
       ),
       Question(
         question: 'Which war was fought between the North and South in the United States?',
-        answers: ['Revolutionary War','Civil War',  'World War I', 'World War II'],
-        correctAnswer: 'Civil War',
+        answers: [
+          Answer.incorrect('Revolutionary War'),
+          Answer.correct('Civil War'),
+          Answer.incorrect('World War I'),
+          Answer.incorrect('World War II'),
+        ],
+        correctAnswer: Answer.correct('Civil War'),
       ),
       Question(
         question: 'Who discovered America in 1492?',
-        answers: [ 'Ferdinand Magellan', 'Vasco da Gama','Christopher Columbus', 'Hernán Cortés'],
-        correctAnswer: 'Christopher Columbus',
+        answers: [
+          Answer.correct('Christopher Columbus'),
+          Answer.incorrect('Leif Erikson'),
+          Answer.incorrect('Ferdinand Magellan'),
+          Answer.incorrect('James Cook'),
+        ],
+        correctAnswer: Answer.correct('Christopher Columbus'),
       ),
       Question(
-        question: 'Which historical figure is known for his “I Have a Dream” speech?',
-        answers: [ 'Malcolm X','Martin Luther King Jr.', 'Rosa Parks', 'Nelson Mandela'],
-        correctAnswer: 'Martin Luther King Jr.',
+        question: 'Which country was the first to grant women the right to vote?',
+        answers: [
+          Answer.correct('New Zealand'),
+          Answer.incorrect('United States'),
+          Answer.incorrect('United Kingdom'),
+          Answer.incorrect('Australia'),
+        ],
+        correctAnswer: Answer.correct('New Zealand'),
       ),
       Question(
-        question: 'What was the name of the ship that carried the Pilgrims to America?',
-        answers: [ 'Nina', 'Pinta', 'Santa Maria','Mayflower'],
-        correctAnswer: 'Mayflower',
+        question: 'Who was the first person to circumnavigate the globe?',
+        answers: [
+          Answer.correct('Ferdinand Magellan'),
+          Answer.incorrect('Christopher Columbus'),
+          Answer.incorrect('Marco Polo'),
+          Answer.incorrect('Vasco da Gama'),
+        ],
+        correctAnswer: Answer.correct('Ferdinand Magellan'),
       ),
     ],
-  )
-
-
+  ),
 ];
 
 QuizCategory getCategoryByName(String categoryName) {
