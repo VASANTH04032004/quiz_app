@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/question.dart';
+import '../models/answer.dart';
 import 'result_screen.dart';
 
 class QuizScreen extends StatefulWidget {
@@ -15,7 +16,7 @@ class QuizScreen extends StatefulWidget {
 class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateMixin {
   int _currentQuestionIndex = 0;
   int _score = 0;
-  String? _selectedAnswer;
+  Answer? _selectedAnswer;
   late QuizCategory? _quizCategory;
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
@@ -29,7 +30,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       vsync: this,
       duration: const Duration(milliseconds: 500),
     );
-    _progressValue = 0; // Initialize the progress value
+    _progressValue = 0;
     _progressAnimation = Tween<double>(begin: _progressValue, end: _progressValue).animate(
       CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
     );
@@ -45,11 +46,11 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       setState(() {
         _currentQuestionIndex++;
         _selectedAnswer = null;
-        _progressValue = (_currentQuestionIndex + 1) / (_quizCategory?.questions.length ?? 1); // Update the progress value
+        _progressValue = (_currentQuestionIndex + 1) / (_quizCategory?.questions.length ?? 1);
         _progressAnimation = Tween<double>(begin: _progressAnimation.value, end: _progressValue).animate(
           CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
         );
-        _animationController.forward(from: 0); // Start animation from the beginning
+        _animationController.forward(from: 0);
       });
     } else {
       Navigator.push(
@@ -97,14 +98,13 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                     animation: _animationController,
                     builder: (context, child) {
                       return Container(
-
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: LinearProgressIndicator(
                           value: _progressAnimation.value,
-                          minHeight: 16,  // Match the height of the container for consistency
+                          minHeight: 16,
                           backgroundColor: Colors.transparent,
                           color: Color(0xFF098EAB),
                           borderRadius: BorderRadius.circular(20),
@@ -150,13 +150,13 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                   ),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
-                                child: RadioListTile<String>(
-                                  title: Text(answer, style: TextStyle(fontSize: 18, color: Colors.black)),
+                                child: RadioListTile<Answer>(
+                                  title: Text(answer.answerText, style: TextStyle(fontSize: 18, color: Colors.black)),
                                   value: answer,
                                   groupValue: _selectedAnswer,
                                   contentPadding: EdgeInsets.zero,
                                   activeColor: Color(0xFF098EAB),
-                                  onChanged: (value) {
+                                  onChanged: (Answer? value) {
                                     setState(() {
                                       _selectedAnswer = value;
                                     });
