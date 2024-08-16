@@ -37,18 +37,6 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
 
   void _submitName() {
     if (_nameController.text.isNotEmpty) {
-      setState(() {
-        _isButtonPressed = true;
-      });
-
-      Future.delayed(Duration(milliseconds: 200), () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen(userName: _nameController.text),
-          ),
-        );
-      });
       Navigator.push(
         context,
         MaterialPageRoute(
@@ -131,20 +119,26 @@ class _UserNameScreenState extends State<UserNameScreen> with SingleTickerProvid
                       ],
                     ),
                   ),
-                  ScaleTransition(
-                    scale: _isButtonPressed ? _buttonScaleAnimation : AlwaysStoppedAnimation(1),
-                    child: ElevatedButton(
-                      onPressed: _submitName,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Color(0xFF098EAB),
-                        minimumSize: Size(double.infinity, 50),
-                        padding: EdgeInsets.symmetric(vertical: 10),
-                        textStyle: TextStyle(fontSize: 20),
-                        foregroundColor: Colors.white,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ScaleTransition(
+                      scale: _isButtonPressed ? _buttonScaleAnimation : AlwaysStoppedAnimation(1),
+                      child: ElevatedButton(
+                        onPressed: _submitName,
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Color(0xFF098EAB),
+                          minimumSize: Size(double.infinity, 60),
+                          textStyle: TextStyle(fontSize: 20),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(25),
+                          ),
+                        ),
+                        child: Text('Submit'),
                       ),
-                      child: Text('Submit'),
                     ),
-                  ),
+                  )
+
                 ],
               ),
             ),
