@@ -3,14 +3,17 @@ import 'answer.dart';
 class Question {
   final String question;
   final List<Answer> answers;
-  final Answer correctAnswer;
+  final List<Answer> correctAnswers;
+  final bool isIndexBased;
 
   Question({
     required this.question,
     required this.answers,
-    required this.correctAnswer,
+    required this.correctAnswers,
+    required this.isIndexBased,
   });
 }
+
 
 class QuizCategory {
   final String name;
@@ -26,6 +29,7 @@ List<QuizCategory> quizCategories = [
   QuizCategory(
     name: 'General Knowledge',
     questions: [
+      // Radio button type
       Question(
         question: 'What is the capital of France?',
         answers: [
@@ -34,7 +38,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Rome'),
           Answer.incorrect('Berlin'),
         ],
-        correctAnswer: Answer.correct('Paris'),
+        correctAnswers: [Answer.correct('Paris')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'Who wrote "To Kill a Mockingbird"?',
@@ -44,7 +49,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Ernest Hemingway'),
           Answer.incorrect('Mark Twain'),
         ],
-        correctAnswer: Answer.correct('Harper Lee'),
+        correctAnswers: [Answer.correct('Harper Lee')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'What is the largest planet in our solar system?',
@@ -54,7 +60,8 @@ List<QuizCategory> quizCategories = [
           Answer.correct('Jupiter'),
           Answer.incorrect('Saturn'),
         ],
-        correctAnswer: Answer.correct('Jupiter'),
+        correctAnswers: [Answer.correct('Jupiter')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'What is the chemical symbol for gold?',
@@ -64,7 +71,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Pb'),
           Answer.incorrect('Fe'),
         ],
-        correctAnswer: Answer.correct('Au'),
+        correctAnswers: [Answer.correct('Au')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'Who painted the Mona Lisa?',
@@ -74,63 +82,71 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Pablo Picasso'),
           Answer.incorrect('Claude Monet'),
         ],
-        correctAnswer: Answer.correct('Leonardo da Vinci'),
+        correctAnswers: [Answer.correct('Leonardo da Vinci')],
+        isIndexBased: false, // Radio button type
+      ),
+      // Index button type
+      Question(
+        question: 'What are some types of fruit?',
+        answers: [
+          Answer.correct('Apple'),
+          Answer.correct('Banana'),
+          Answer.incorrect('Carrot'),
+          Answer.incorrect('Potato'),
+        ],
+        correctAnswers: [Answer.correct('Apple'), Answer.correct('Banana')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'What is the smallest continent by land area?',
+        question: 'Which of these are programming languages?',
         answers: [
-          Answer.correct('Australia'),
-          Answer.incorrect('Europe'),
-          Answer.incorrect('South America'),
-          Answer.incorrect('Africa'),
+          Answer.correct('Dart'),
+          Answer.correct('Python'),
+          Answer.incorrect('HTML'),
+          Answer.incorrect('CSS'),
         ],
-        correctAnswer: Answer.correct('Australia'),
+        correctAnswers: [Answer.correct('Dart'), Answer.correct('Python')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'What is the main ingredient in guacamole?',
+        question: 'Select some prime numbers:',
         answers: [
-          Answer.correct('Avocado'),
-          Answer.incorrect('Tomato'),
-          Answer.incorrect('Pepper'),
-          Answer.incorrect('Onion'),
+          Answer.correct('2'),
+          Answer.correct('3'),
+          Answer.incorrect('4'),
+          Answer.incorrect('6'),
         ],
-        correctAnswer: Answer.correct('Avocado'),
+        correctAnswers: [Answer.correct('2'), Answer.correct('3')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'What year did the Titanic sink?',
+        question: 'Which of these are planets?',
         answers: [
-          Answer.correct('1912'),
-          Answer.incorrect('1905'),
-          Answer.incorrect('1898'),
-          Answer.incorrect('1923'),
+          Answer.correct('Mars'),
+          Answer.correct('Saturn'),
+          Answer.incorrect('Sun'),
+          Answer.incorrect('Moon'),
         ],
-        correctAnswer: Answer.correct('1912'),
+        correctAnswers: [Answer.correct('Mars'), Answer.correct('Saturn')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'Which element has the atomic number 1?',
+        question: 'Which elements are gases at room temperature?',
         answers: [
-          Answer.correct('Hydrogen'),
-          Answer.incorrect('Helium'),
-          Answer.incorrect('Oxygen'),
-          Answer.incorrect('Carbon'),
+          Answer.correct('Oxygen'),
+          Answer.correct('Nitrogen'),
+          Answer.incorrect('Iron'),
+          Answer.incorrect('Copper'),
         ],
-        correctAnswer: Answer.correct('Hydrogen'),
-      ),
-      Question(
-        question: 'What is the longest river in the world?',
-        answers: [
-          Answer.correct('Nile'),
-          Answer.incorrect('Amazon'),
-          Answer.incorrect('Yangtze'),
-          Answer.incorrect('Mississippi'),
-        ],
-        correctAnswer: Answer.correct('Nile'),
+        correctAnswers: [Answer.correct('Oxygen'), Answer.correct('Nitrogen')],
+        isIndexBased: true, // Index button type
       ),
     ],
   ),
   QuizCategory(
     name: 'Science',
     questions: [
+      // Radio button type
       Question(
         question: 'What planet is known as the Red Planet?',
         answers: [
@@ -139,7 +155,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Earth'),
           Answer.incorrect('Jupiter'),
         ],
-        correctAnswer: Answer.correct('Mars'),
+        correctAnswers: [Answer.correct('Mars')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'What is the chemical symbol for water?',
@@ -149,7 +166,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('CO2'),
           Answer.incorrect('H2SO4'),
         ],
-        correctAnswer: Answer.correct('H2O'),
+        correctAnswers: [Answer.correct('H2O')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'What is the process by which plants make their food?',
@@ -159,7 +177,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Digestion'),
           Answer.incorrect('Transpiration'),
         ],
-        correctAnswer: Answer.correct('Photosynthesis'),
+        correctAnswers: [Answer.correct('Photosynthesis')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'Who is known as the father of modern physics?',
@@ -169,7 +188,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Niels Bohr'),
           Answer.incorrect('Galileo Galilei'),
         ],
-        correctAnswer: Answer.correct('Albert Einstein'),
+        correctAnswers: [Answer.correct('Albert Einstein')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'What gas do plants absorb from the atmosphere?',
@@ -179,63 +199,71 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Nitrogen'),
           Answer.incorrect('Hydrogen'),
         ],
-        correctAnswer: Answer.correct('Carbon Dioxide'),
+        correctAnswers: [Answer.correct('Carbon Dioxide')],
+        isIndexBased: false, // Radio button type
+      ),
+      // Index button type
+      Question(
+        question: 'Which of these are chemical elements?',
+        answers: [
+          Answer.correct('Gold'),
+          Answer.correct('Silver'),
+          Answer.incorrect('Water'),
+          Answer.incorrect('Sugar'),
+        ],
+        correctAnswers: [Answer.correct('Gold'), Answer.correct('Silver')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'What is the most abundant gas in Earth’s atmosphere?',
+        question: 'Select the primary colors:',
         answers: [
-          Answer.correct('Nitrogen'),
-          Answer.incorrect('Oxygen'),
-          Answer.incorrect('Carbon Dioxide'),
-          Answer.incorrect('Argon'),
+          Answer.correct('Red'),
+          Answer.correct('Blue'),
+          Answer.incorrect('Green'),
+          Answer.incorrect('Purple'),
         ],
-        correctAnswer: Answer.correct('Nitrogen'),
+        correctAnswers: [Answer.correct('Red'), Answer.correct('Blue')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'What is the powerhouse of the cell?',
+        question: 'Which of these are human senses?',
         answers: [
-          Answer.correct('Mitochondria'),
-          Answer.incorrect('Nucleus'),
-          Answer.incorrect('Ribosome'),
-          Answer.incorrect('Endoplasmic Reticulum'),
+          Answer.correct('Sight'),
+          Answer.correct('Hearing'),
+          Answer.incorrect('Gravity'),
+          Answer.incorrect('Velocity'),
         ],
-        correctAnswer: Answer.correct('Mitochondria'),
+        correctAnswers: [Answer.correct('Sight'), Answer.correct('Hearing')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'What type of bond holds the two strands of DNA together?',
+        question: 'Which animals are mammals?',
         answers: [
-          Answer.correct('Hydrogen Bond'),
-          Answer.incorrect('Ionic Bond'),
-          Answer.incorrect('Covalent Bond'),
-          Answer.incorrect('Metallic Bond'),
+          Answer.correct('Elephant'),
+          Answer.correct('Dolphin'),
+          Answer.incorrect('Shark'),
+          Answer.incorrect('Eagle'),
         ],
-        correctAnswer: Answer.correct('Hydrogen Bond'),
+        correctAnswers: [Answer.correct('Elephant'), Answer.correct('Dolphin')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'What is the speed of light?',
+        question: 'Select renewable energy sources:',
         answers: [
-          Answer.correct('299,792 km/s'),
-          Answer.incorrect('150,000 km/s'),
-          Answer.incorrect('300,000 km/s'),
-          Answer.incorrect('200,000 km/s'),
+          Answer.correct('Solar'),
+          Answer.correct('Wind'),
+          Answer.incorrect('Coal'),
+          Answer.incorrect('Natural Gas'),
         ],
-        correctAnswer: Answer.correct('299,792 km/s'),
-      ),
-      Question(
-        question: 'What is the chemical symbol for sodium?',
-        answers: [
-          Answer.correct('Na'),
-          Answer.incorrect('N'),
-          Answer.incorrect('S'),
-          Answer.incorrect('So'),
-        ],
-        correctAnswer: Answer.correct('Na'),
+        correctAnswers: [Answer.correct('Solar'), Answer.correct('Wind')],
+        isIndexBased: true, // Index button type
       ),
     ],
   ),
   QuizCategory(
     name: 'History',
     questions: [
+      // Radio button type
       Question(
         question: 'Who was the first President of the United States?',
         answers: [
@@ -244,7 +272,8 @@ List<QuizCategory> quizCategories = [
           Answer.correct('George Washington'),
           Answer.incorrect('John Adams'),
         ],
-        correctAnswer: Answer.correct('George Washington'),
+        correctAnswers: [Answer.correct('George Washington')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'In which year did World War II end?',
@@ -254,7 +283,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('1944'),
           Answer.incorrect('1941'),
         ],
-        correctAnswer: Answer.correct('1945'),
+        correctAnswers: [Answer.correct('1945')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'Who was the first man to walk on the Moon?',
@@ -264,7 +294,8 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Yuri Gagarin'),
           Answer.incorrect('Michael Collins'),
         ],
-        correctAnswer: Answer.correct('Neil Armstrong'),
+        correctAnswers: [Answer.correct('Neil Armstrong')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
         question: 'What empire was ruled by Julius Caesar?',
@@ -274,71 +305,80 @@ List<QuizCategory> quizCategories = [
           Answer.incorrect('Mongol Empire'),
           Answer.correct('Roman Empire'),
         ],
-        correctAnswer: Answer.correct('Roman Empire'),
+        correctAnswers: [Answer.correct('Roman Empire')],
+        isIndexBased: false, // Radio button type
       ),
       Question(
-        question: 'What ancient civilization built the pyramids?',
+        question: 'What was the main focus of the Renaissance period?',
         answers: [
-          Answer.incorrect('Romans'),
-          Answer.incorrect('Greeks'),
+          Answer.correct('Art and Science'),
+          Answer.incorrect('Industrialization'),
+          Answer.incorrect('Exploration'),
+          Answer.incorrect('Revolution'),
+        ],
+        correctAnswers: [Answer.correct('Art and Science')],
+        isIndexBased: false, // Radio button type
+      ),
+      // Index button type
+      Question(
+        question: 'Which of these were ancient civilizations?',
+        answers: [
           Answer.correct('Egyptians'),
-          Answer.incorrect('Mesoamericans'),
+          Answer.correct('Greeks'),
+          Answer.incorrect('Mayans'),
+          Answer.incorrect('Incas'),
         ],
-        correctAnswer: Answer.correct('Egyptians'),
+        correctAnswers: [Answer.correct('Egyptians'), Answer.correct('Greeks')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'Who was the first female Prime Minister of the United Kingdom?',
+        question: 'Select some famous leaders of the 20th century:',
         answers: [
-          Answer.incorrect('Theresa May'),
-          Answer.incorrect('Priti Patel'),
-          Answer.incorrect('Nicola Sturgeon'),
-          Answer.correct('Margaret Thatcher'),
+          Answer.correct('Winston Churchill'),
+          Answer.correct('Nelson Mandela'),
+          Answer.incorrect('Cleopatra'),
+          Answer.incorrect('Alexander the Great'),
         ],
-        correctAnswer: Answer.correct('Margaret Thatcher'),
+        correctAnswers: [Answer.correct('Winston Churchill'), Answer.correct('Nelson Mandela')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'Which war was fought between the North and South in the United States?',
+        question: 'Which events occurred in the 19th century?',
         answers: [
-          Answer.incorrect('Revolutionary War'),
-          Answer.correct('Civil War'),
+          Answer.correct('American Civil War'),
+          Answer.correct('Industrial Revolution'),
           Answer.incorrect('World War I'),
-          Answer.incorrect('World War II'),
+          Answer.incorrect('Fall of the Berlin Wall'),
         ],
-        correctAnswer: Answer.correct('Civil War'),
+        correctAnswers: [Answer.correct('American Civil War'), Answer.correct('Industrial Revolution')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'Who discovered America in 1492?',
+        question: 'Select significant battles of World War II:',
         answers: [
-          Answer.correct('Christopher Columbus'),
-          Answer.incorrect('Leif Erikson'),
-          Answer.incorrect('Ferdinand Magellan'),
-          Answer.incorrect('James Cook'),
+          Answer.correct('Battle of Stalingrad'),
+          Answer.correct('Battle of Midway'),
+          Answer.incorrect('Battle of Gettysburg'),
+          Answer.incorrect('Battle of Waterloo'),
         ],
-        correctAnswer: Answer.correct('Christopher Columbus'),
+        correctAnswers: [Answer.correct('Battle of Stalingrad'), Answer.correct('Battle of Midway')],
+        isIndexBased: true, // Index button type
       ),
       Question(
-        question: 'Which country was the first to grant women the right to vote?',
+        question: 'Which countries were part of the Axis Powers?',
         answers: [
-          Answer.correct('New Zealand'),
-          Answer.incorrect('United States'),
-          Answer.incorrect('United Kingdom'),
-          Answer.incorrect('Australia'),
+          Answer.correct('Germany'),
+          Answer.correct('Japan'),
+          Answer.incorrect('France'),
+          Answer.incorrect('USA'),
         ],
-        correctAnswer: Answer.correct('New Zealand'),
-      ),
-      Question(
-        question: 'Who was the first person to circumnavigate the globe?',
-        answers: [
-          Answer.correct('Ferdinand Magellan'),
-          Answer.incorrect('Christopher Columbus'),
-          Answer.incorrect('Marco Polo'),
-          Answer.incorrect('Vasco da Gama'),
-        ],
-        correctAnswer: Answer.correct('Ferdinand Magellan'),
+        correctAnswers: [Answer.correct('Germany'), Answer.correct('Japan')],
+        isIndexBased: true, // Index button type
       ),
     ],
   ),
 ];
+
 
 QuizCategory getCategoryByName(String categoryName) {
   return quizCategories.firstWhere(
