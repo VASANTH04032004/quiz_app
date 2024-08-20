@@ -17,7 +17,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
   int _currentQuestionIndex = 0;
   int _score = 0;
   List<Answer> _selectedAnswers = [];
-  late QuizCategory? _quizCategory;
+  QuizCategory? _quizCategory;
   late AnimationController _animationController;
   late Animation<double> _progressAnimation;
   late double _progressValue;
@@ -40,13 +40,13 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
   void _nextQuestion() {
     setState(() {
       // Validate and update the score
-      if (_quizCategory?.questions[_currentQuestionIndex].isIndexBased ?? false) {
+      if (_quizCategory?.questions[_currentQuestionIndex].isIndexBased == true) {
         if (_selectedAnswers.toSet().containsAll(_quizCategory?.questions[_currentQuestionIndex].correctAnswers ?? [])) {
           _score += 10;
         }
       } else {
         if (_selectedAnswers.isNotEmpty &&
-            _quizCategory!.questions[_currentQuestionIndex].correctAnswers.contains(_selectedAnswers.first)) {
+            _quizCategory?.questions[_currentQuestionIndex].correctAnswers.contains(_selectedAnswers.first) == true) {
           _score += 10;
         }
       }
@@ -75,7 +75,6 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
       }
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -137,14 +136,14 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 54.0),
                         child: Text(
-                          _quizCategory!.questions[_currentQuestionIndex].question,
+                          _quizCategory?.questions[_currentQuestionIndex].question ?? '',
                           style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                         ),
                       ),
                     ),
                     Expanded(
                       child: ListView(
-                        children: _quizCategory!.questions[_currentQuestionIndex].answers.map<Widget>((answer) {
+                        children: _quizCategory?.questions[_currentQuestionIndex].answers.map<Widget>((answer) {
                           bool isSelected = _selectedAnswers.contains(answer);
                           return FadeTransition(
                             opacity: _animationController.drive(
@@ -153,7 +152,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                             child: GestureDetector(
                               onTap: () {
                                 setState(() {
-                                  if (_quizCategory!.questions[_currentQuestionIndex].isIndexBased) {
+                                  if (_quizCategory?.questions[_currentQuestionIndex].isIndexBased == true) {
                                     if (isSelected) {
                                       _selectedAnswers.remove(answer);
                                     } else {
@@ -178,7 +177,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                 ),
                                 child: Row(
                                   children: [
-                                    if (_quizCategory!.questions[_currentQuestionIndex].isIndexBased)
+                                    if (_quizCategory?.questions[_currentQuestionIndex].isIndexBased == true)
                                       Checkbox(
                                         value: isSelected,
                                         activeColor: Color(0xFF098EAB),
@@ -192,7 +191,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                           });
                                         },
                                       ),
-                                    if (!_quizCategory!.questions[_currentQuestionIndex].isIndexBased)
+                                    if (_quizCategory?.questions[_currentQuestionIndex].isIndexBased != true)
                                       Radio<Answer>(
                                         value: answer,
                                         groupValue: _selectedAnswers.isNotEmpty ? _selectedAnswers.first : null,
@@ -200,7 +199,9 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                                         onChanged: (Answer? value) {
                                           setState(() {
                                             _selectedAnswers.clear();
-                                            _selectedAnswers.add(value!);
+                                            if (value != null) {
+                                              _selectedAnswers.add(value);
+                                            }
                                           });
                                         },
                                       ),
@@ -215,7 +216,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                               ),
                             ),
                           );
-                        }).toList(),
+                        }).toList() ?? [],
                       ),
                     ),
                     ScaleTransition(
@@ -232,7 +233,7 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
                           foregroundColor: Colors.white,
                         ),
                         child: Text(
-                          _currentQuestionIndex < _quizCategory!.questions.length - 1
+                          _currentQuestionIndex < (_quizCategory?.questions.length ?? 0) - 1
                               ? 'Next'
                               : 'Finish',
                         ),
