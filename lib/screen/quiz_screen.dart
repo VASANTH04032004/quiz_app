@@ -38,40 +38,44 @@ class _QuizScreenState extends State<QuizScreen> with SingleTickerProviderStateM
   }
 
   void _nextQuestion() {
-    if (_quizCategory?.questions[_currentQuestionIndex].isIndexBased ?? false) {
-      if (_selectedAnswers.toSet().containsAll(_quizCategory?.questions[_currentQuestionIndex].correctAnswers ?? [])) {
-        _score += 10;
+    setState(() {
+      // Validate and update the score
+      if (_quizCategory?.questions[_currentQuestionIndex].isIndexBased ?? false) {
+        if (_selectedAnswers.toSet().containsAll(_quizCategory?.questions[_currentQuestionIndex].correctAnswers ?? [])) {
+          _score += 10;
+        }
+      } else {
+        if (_selectedAnswers.isNotEmpty &&
+            _quizCategory!.questions[_currentQuestionIndex].correctAnswers.contains(_selectedAnswers.first)) {
+          _score += 10;
+        }
       }
-    } else {
-      if (_selectedAnswers.isNotEmpty &&
-          _quizCategory!.questions[_currentQuestionIndex].correctAnswers.contains(_selectedAnswers.first)) {
-        _score += 10;
-      }
-    }
 
-    if (_currentQuestionIndex < (_quizCategory?.questions.length ?? 0) - 1) {
-      setState(() {
+      // Move to the next question if available
+      if (_currentQuestionIndex < (_quizCategory?.questions.length ?? 0) - 1) {
         _currentQuestionIndex++;
-        _selectedAnswers.clear();
+        _selectedAnswers.clear(); // Clear selected answers for the new question
         _progressValue = (_currentQuestionIndex + 1) / (_quizCategory?.questions.length ?? 1);
-        _progressAnimation = Tween<double>(begin: _progressAnimation.value, end: _progressValue).animate(
+        _progressAnimation = Tween<double>(begin: 0, end: _progressValue).animate(
           CurvedAnimation(parent: _animationController, curve: Curves.easeInOut),
         );
-        _animationController.forward(from: 0);
-      });
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => ResultScreen(
-            score: _score,
-            total: _quizCategory?.questions.length ?? 0,
-            userName: widget.userName,
+        _animationController.forward(from: 0); // Reset the animation for progress bar
+      } else {
+        // Navigate to the result screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ResultScreen(
+              score: _score,
+              total: _quizCategory?.questions.length ?? 0,
+              userName: widget.userName,
+            ),
           ),
-        ),
-      );
-    }
+        );
+      }
+    });
   }
+
 
   @override
   Widget build(BuildContext context) {
