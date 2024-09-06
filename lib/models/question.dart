@@ -33,9 +33,9 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'What is the capital of France?',
         answers: [
-          Answer.correct('Paris'),
           Answer.incorrect('London'),
           Answer.incorrect('Rome'),
+          Answer.correct('Paris'),
           Answer.incorrect('Berlin'),
         ],
         correctAnswers: [Answer.correct('Paris')],
@@ -44,8 +44,8 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Who wrote "To Kill a Mockingbird"?',
         answers: [
-          Answer.correct('Harper Lee'),
           Answer.incorrect('J.K. Rowling'),
+          Answer.correct('Harper Lee'),
           Answer.incorrect('Ernest Hemingway'),
           Answer.incorrect('Mark Twain'),
         ],
@@ -77,10 +77,10 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Who painted the Mona Lisa?',
         answers: [
-          Answer.correct('Leonardo da Vinci'),
           Answer.incorrect('Vincent van Gogh'),
           Answer.incorrect('Pablo Picasso'),
           Answer.incorrect('Claude Monet'),
+          Answer.correct('Leonardo da Vinci'),
         ],
         correctAnswers: [Answer.correct('Leonardo da Vinci')],
         isIndexBased: false, // Radio button type
@@ -90,9 +90,9 @@ List<QuizCategory> quizCategories = [
         question: 'What are some types of fruit?',
         answers: [
           Answer.correct('Apple'),
-          Answer.correct('Banana'),
           Answer.incorrect('Carrot'),
           Answer.incorrect('Potato'),
+          Answer.correct('Banana'),
         ],
         correctAnswers: [Answer.correct('Apple'), Answer.correct('Banana')],
         isIndexBased: true, // Index button type
@@ -100,10 +100,10 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which of these are programming languages?',
         answers: [
-          Answer.correct('Dart'),
-          Answer.correct('Python'),
           Answer.incorrect('HTML'),
+          Answer.correct('Dart'),
           Answer.incorrect('CSS'),
+          Answer.correct('Python'),
         ],
         correctAnswers: [Answer.correct('Dart'), Answer.correct('Python')],
         isIndexBased: true, // Index button type
@@ -112,8 +112,8 @@ List<QuizCategory> quizCategories = [
         question: 'Select some prime numbers:',
         answers: [
           Answer.correct('2'),
-          Answer.correct('3'),
           Answer.incorrect('4'),
+          Answer.correct('3'),
           Answer.incorrect('6'),
         ],
         correctAnswers: [Answer.correct('2'), Answer.correct('3')],
@@ -122,9 +122,9 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which of these are planets?',
         answers: [
-          Answer.correct('Mars'),
           Answer.correct('Saturn'),
           Answer.incorrect('Sun'),
+          Answer.correct('Mars'),
           Answer.incorrect('Moon'),
         ],
         correctAnswers: [Answer.correct('Mars'), Answer.correct('Saturn')],
@@ -133,10 +133,10 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which elements are gases at room temperature?',
         answers: [
-          Answer.correct('Oxygen'),
-          Answer.correct('Nitrogen'),
           Answer.incorrect('Iron'),
           Answer.incorrect('Copper'),
+          Answer.correct('Nitrogen'),
+          Answer.correct('Oxygen'),
         ],
         correctAnswers: [Answer.correct('Oxygen'), Answer.correct('Nitrogen')],
         isIndexBased: true, // Index button type
@@ -161,9 +161,9 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'What is the chemical symbol for water?',
         answers: [
-          Answer.correct('H2O'),
           Answer.incorrect('O2'),
           Answer.incorrect('CO2'),
+          Answer.correct('H2O'),
           Answer.incorrect('H2SO4'),
         ],
         correctAnswers: [Answer.correct('H2O')],
@@ -172,8 +172,8 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'What is the process by which plants make their food?',
         answers: [
-          Answer.correct('Photosynthesis'),
           Answer.incorrect('Respiration'),
+          Answer.correct('Photosynthesis'),
           Answer.incorrect('Digestion'),
           Answer.incorrect('Transpiration'),
         ],
@@ -183,10 +183,10 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Who is known as the father of modern physics?',
         answers: [
-          Answer.correct('Albert Einstein'),
           Answer.incorrect('Isaac Newton'),
           Answer.incorrect('Niels Bohr'),
           Answer.incorrect('Galileo Galilei'),
+          Answer.correct('Albert Einstein'),
         ],
         correctAnswers: [Answer.correct('Albert Einstein')],
         isIndexBased: false, // Radio button type
@@ -206,8 +206,8 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which of these are chemical elements?',
         answers: [
-          Answer.correct('Gold'),
           Answer.correct('Silver'),
+          Answer.correct('Gold'),
           Answer.incorrect('Water'),
           Answer.incorrect('Sugar'),
         ],
@@ -218,9 +218,9 @@ List<QuizCategory> quizCategories = [
         question: 'Select the primary colors:',
         answers: [
           Answer.correct('Red'),
-          Answer.correct('Blue'),
           Answer.incorrect('Green'),
           Answer.incorrect('Purple'),
+          Answer.correct('Blue'),
         ],
         correctAnswers: [Answer.correct('Red'), Answer.correct('Blue')],
         isIndexBased: true, // Index button type
@@ -228,10 +228,11 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which of these are human senses?',
         answers: [
-          Answer.correct('Sight'),
-          Answer.correct('Hearing'),
           Answer.incorrect('Gravity'),
+          Answer.correct('Sight'),
           Answer.incorrect('Velocity'),
+          Answer.correct('Hearing'),
+
         ],
         correctAnswers: [Answer.correct('Sight'), Answer.correct('Hearing')],
         isIndexBased: true, // Index button type
@@ -239,9 +240,9 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which animals are mammals?',
         answers: [
+          Answer.incorrect('Shark'),
           Answer.correct('Elephant'),
           Answer.correct('Dolphin'),
-          Answer.incorrect('Shark'),
           Answer.incorrect('Eagle'),
         ],
         correctAnswers: [Answer.correct('Elephant'), Answer.correct('Dolphin')],
@@ -250,10 +251,10 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Select renewable energy sources:',
         answers: [
-          Answer.correct('Solar'),
-          Answer.correct('Wind'),
           Answer.incorrect('Coal'),
+          Answer.correct('Wind'),
           Answer.incorrect('Natural Gas'),
+          Answer.correct('Wind'),
         ],
         correctAnswers: [Answer.correct('Solar'), Answer.correct('Wind')],
         isIndexBased: true, // Index button type
@@ -323,8 +324,8 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which of these were ancient civilizations?',
         answers: [
-          Answer.correct('Egyptians'),
           Answer.correct('Greeks'),
+          Answer.correct('Egyptians'),
           Answer.incorrect('Mayans'),
           Answer.incorrect('Incas'),
         ],
@@ -334,9 +335,9 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Select some famous leaders of the 20th century:',
         answers: [
-          Answer.correct('Winston Churchill'),
           Answer.correct('Nelson Mandela'),
           Answer.incorrect('Cleopatra'),
+          Answer.correct('Winston Churchill'),
           Answer.incorrect('Alexander the Great'),
         ],
         correctAnswers: [Answer.correct('Winston Churchill'), Answer.correct('Nelson Mandela')],
@@ -345,9 +346,9 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Which events occurred in the 19th century?',
         answers: [
+          Answer.incorrect('World War I'),
           Answer.correct('American Civil War'),
           Answer.correct('Industrial Revolution'),
-          Answer.incorrect('World War I'),
           Answer.incorrect('Fall of the Berlin Wall'),
         ],
         correctAnswers: [Answer.correct('American Civil War'), Answer.correct('Industrial Revolution')],
@@ -356,10 +357,10 @@ List<QuizCategory> quizCategories = [
       Question(
         question: 'Select significant battles of World War II:',
         answers: [
-          Answer.correct('Battle of Stalingrad'),
-          Answer.correct('Battle of Midway'),
           Answer.incorrect('Battle of Gettysburg'),
           Answer.incorrect('Battle of Waterloo'),
+          Answer.correct('Battle of Stalingrad'),
+          Answer.correct('Battle of Midway'),
         ],
         correctAnswers: [Answer.correct('Battle of Stalingrad'), Answer.correct('Battle of Midway')],
         isIndexBased: true, // Index button type
@@ -368,9 +369,9 @@ List<QuizCategory> quizCategories = [
         question: 'Which countries were part of the Axis Powers?',
         answers: [
           Answer.correct('Germany'),
-          Answer.correct('Japan'),
           Answer.incorrect('France'),
           Answer.incorrect('USA'),
+          Answer.correct('Japan'),
         ],
         correctAnswers: [Answer.correct('Germany'), Answer.correct('Japan')],
         isIndexBased: true, // Index button type
